@@ -1,0 +1,589 @@
+
+/* 
+ * 2.32 
+ * Body Mass Index
+ * Author: Xavier Loera Flores
+ * 1/31/2018
+ */
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <math.h>
+
+
+int main(void) {
+    //Declares Variables
+    int Weight;
+    int Height;
+    float BMI;
+    
+    //Orders user to input 
+    printf("Please enter your weight in pounds: ");
+    scanf("%d",&Weight);
+    printf("Pease enter your height in inches: ");
+    scanf("%d",&Height);
+    
+    //Calculates and outputs BMI
+    BMI = ((Weight * 703)/pow(Height , 2.0));
+    printf("Your BMI is %f \n", BMI);
+
+    //Presents BMI information 
+    printf("BMI VALUES\n");
+    printf("Underweight: \t\t less than 18.5\n");
+    printf("Normal: \t\t between 18.5 and 24.9\n");
+    printf("Overweight: \t\t between 15 and 29.9\n");
+    printf("Obese: \t\t\t 30 or greater\n");
+    return (0);
+}
+
+
+Please enter your weight in pounds: 5
+Pease enter your height in inches: 5
+Your BMI is 140.600006 
+BMI VALUES
+Underweight:             less than 18.5
+Normal:                  between 18.5 and 24.9
+Overweight:              between 15 and 29.9
+Obese:                   30 or greater
+
+RUN FINISHED; exit value 0; real time: 4s; user: 0ms; system: 0ms
+--------------------------------------------------------------------------------------
+/* 
+ * 2.33
+ * Another Dangling Else Problem
+ * Author: Xavier Loera Flores
+ * 2/14/2018
+ */
+
+#include <stdio.h>
+#include <stdlib.h>
+
+
+int main(void) {
+    //initializes variables
+    float milesPerDay;
+    float tolls;
+    float costPerGallon;
+    float milesPerGallon;
+    float parkingFeesPerDay;
+    float totalGas;
+    float totalCost;
+
+    //Inputs Total Miles Per Day
+    puts("Enter your Total miles driven per day.");
+    scanf("%f",&milesPerDay);
+
+    //Inputs Cost Per Gallon
+    puts("Enter your Cost per gallon of gasoline.");
+    scanf("%f",&costPerGallon);
+
+    //Inputs Miles Per Gallon
+    puts("Enter your Average miles per gallon.");
+    scanf("%f",&milesPerGallon);
+
+    //Inputs Parking Fees Per Day
+    puts("Enter your Parking fees per day.");
+    scanf("%f",&parkingFeesPerDay);
+
+    //Inputs Tolls per day
+    puts("Enter your Tolls per day.");
+    scanf("%f",&tolls);
+    
+    
+    //Calculates Gas Cost
+    totalGas=costPerGallon*(milesPerDay/milesPerGallon);
+    printf("Total Gas Price : $%.2f\n",totalGas);
+
+    //Calculates Total Cost Per Day
+    totalCost=totalGas+parkingFeesPerDay+tolls;
+    printf("Total Cost Per Day : $%.2f\n",totalCost);
+    return (EXIT_SUCCESS);
+}
+
+
+
+
+Enter your Total miles driven per day.
+10
+Enter your Cost per gallon of gasoline.
+2.50
+Enter your Average miles per gallon.
+20
+Enter your Parking fees per day.
+.25
+Enter your Tolls per day.
+1.50
+Total Gas Price : $1.25
+Total Cost Per Day : $3.00
+
+RUN FINISHED; exit value 0; real time: 24s; user: 0ms; system: 0ms
+
+——————————————————————————————————-----------------------------------------------
+/* 
+ * 3.19
+ * Interest Calculator
+ * Author: Xavier Loera Flores
+ * 2/21/2018
+ */
+#include <stdio.h>
+#include <stdlib.h>
+
+int main() {
+    //creates variables
+    float principal, rate, interest;
+    int days;
+    
+    //Do loop Allows user to begin Input
+    do {
+    puts("Enter Loan Principal(-1 to end):");
+    scanf("%f",&principal);
+
+    if (principal!=-1){//skips when user enters -1
+        puts("Enter Interest rate:");
+        scanf("%f",&rate);//Collects Interest Rate
+        
+        puts("Enter term of the loan in days:");
+        scanf("%d",&days);//Collects Days
+        
+        interest = (principal *rate*days)/365;//Calculates Interest
+        printf("The interest charge is $%.2f\n\n",interest);//Outputs Interest
+    }} while (principal !=-1);//checks if -1
+    return (EXIT_SUCCESS);
+}
+
+
+
+
+Enter Loan Principal(-1 to end):
+1000
+Enter Interest rate:
+.1
+Enter term of the loan in days:
+365
+The interest charge is $100.00
+
+Enter Loan Principal(-1 to end):
+1000
+Enter Interest rate:
+.08375
+Enter term of the loan in days:
+224
+The interest charge is $51.40
+
+Enter Loan Principal(-1 to end):
+-1
+
+RUN FINISHED; exit value 0; real time: 27s; user: 0ms; system: 0ms
+
+
+
+
+--------------------------------------------------------------------------------------
+
+/* 
+ * 3.31
+ * Another Dangling Else Problem
+ * Author: Xavier Loera Flores
+ * 2/14/2018
+ */
+
+#include <stdio.h>
+#include <stdlib.h>
+
+int main(void) {
+/* Original:
+    if(y==8)
+    if(5==5)
+    puts("@@@@@");
+    else
+    puts("#####");
+    puts("$$$$$$");
+    puts("&&&&&");
+ Assuming x=5, y=8
+*/
+    //Initializes values
+    int x=5;
+    int y=8;
+/*
+@@@@@
+$$$$$
+&&&&&
+ */    
+    if(y==8){
+        if(x==5)
+        puts("@@@@@");
+    }
+    else{
+        puts("#####");
+    }
+    puts("$$$$$$");
+    puts("&&&&&");
+    puts("\n");
+
+/*
+ @@@@@
+ */  
+    if(y==8){
+        if(x==5)
+        puts("@@@@@");
+    }
+    else{
+        puts("#####");
+        puts("$$$$$$");
+        puts("&&&&&");
+    }
+    puts("\n");
+/*
+ @@@@@
+ &&&&&
+ */ 
+    if(y==8){
+    if(x==5)
+    puts("@@@@@");}
+    else{
+        puts("#####");
+        puts("$$$$$$");
+    }
+    puts("&&&&&"); 
+    puts("\n");
+/*
+Assuming y=7
+#####
+$$$$$
+&&&&& 
+ */  
+    //Resets y to equal 7
+    y=7;
+    printf("y = %d\n\n",y);
+    
+    if(y==8){
+        if(x==5)
+        puts("@@@@@");
+    }
+    else{
+        puts("#####");
+        puts("$$$$$$");
+        puts("&&&&&");
+    }
+}
+
+
+
+@@@@@
+$$$$$$
+&&&&&
+
+
+@@@@@
+
+
+@@@@@
+&&&&&
+
+
+y = 7
+
+#####
+$$$$$$
+&&&&&
+
+RUN FINISHED; exit value 0; real time: 10ms; user: 0ms; system: 0ms
+
+------------------------------------------------------------------------------------------
+
+/* 
+ * 4.28
+ * Calculating Weekly Pay
+ * Author: Xavier Loera Flores
+ * 2/21/2018
+ */
+
+#include <stdio.h>
+#include <stdlib.h>
+
+
+int main() {
+    //Initialize Variables
+    double weekly,quantity, payrate;
+    char code;
+    
+    puts("Enter Paycode(0 to end):");
+    while ( ( code = getchar() ) != '0' ){//Get PayCode 
+        switch ( code ) {
+
+            case '1'://Managers
+                puts("Manger");
+                puts("Enter Weekly Pay");
+                scanf("%lf",&weekly);//Weekly Salary
+                printf("WEEKLY PAY:$%.2f\n\n",weekly);
+                puts("Enter Paycode(0 to end):");
+                break;
+
+            case '2'://Hourly Workers            
+                puts("Hourly Worker");
+                puts("Enter Hourly Rate");
+                scanf("%lf",&payrate);//Wage
+                puts("Enter Hours Worked");
+                scanf("%lf",&quantity);//Hours
+                weekly = quantity * payrate;//Calculating Weekly Pay
+                if (quantity>40){
+                    weekly +=(quantity - 40)*.5;
+                }
+                printf("WEEKLY PAY:$%.2f\n\n",weekly);
+                puts("Enter Paycode(0 to end):");
+                break;
+                
+            case '3'://Commission Workers
+                puts("Commission Workers");
+                puts("Enter Gross Weekly Sales");
+                scanf("%lf",&weekly);//Weekly Sales
+                weekly = weekly*.057 + 250;//Calculating Weekly Pay
+                printf("WEEKLY PAY:$%.2f\n\n",weekly);
+                puts("Enter Paycode(0 to end):");
+                break;
+                
+            case '4'://Piece Workers
+                puts("Piece Workers");
+                puts("Enter Price Per Item");
+                scanf("%lf",&payrate);//Item Price
+                puts("Enter Number of Items sold");
+                scanf("%lf",&quantity);//Number Sold
+                weekly = payrate * quantity;//Calculating Weekly Pay
+                printf("WEEKLY PAY:$%.2f\n\n",weekly);
+                puts("Enter Paycode(0 to end):");
+                break;
+        }
+        }
+    return (EXIT_SUCCESS);
+
+}
+
+
+Enter Paycode(0 to end):
+1
+Manger
+Enter Weekly Pay
+2000
+WEEKLY PAY:$2000.00
+
+Enter Paycode(0 to end):
+2
+Hourly Worker
+Enter Hourly Rate
+10.50
+Enter Hours Worked
+4
+WEEKLY PAY:$42.00
+
+Enter Paycode(0 to end):
+3
+Commission Workers
+Enter Gross Weekly Sales
+4000
+WEEKLY PAY:$478.00
+
+Enter Paycode(0 to end):
+4
+Piece Workers
+Enter Price Per Item
+32
+Enter Number of Items sold
+5
+WEEKLY PAY:$160.00
+
+Enter Paycode(0 to end):
+0
+
+RUN FINISHED; exit value 0; real time: 51s; user: 0ms; system: 0ms
+
+
+-----------------------------------------------------------------------------------------
+
+
+
+/* 
+ * 4.31
+ * Calculating Weekly Pay
+ * Author: Xavier Loera Flores
+ * 2/28/2018
+ */
+
+#include <stdio.h>
+#include <stdlib.h>
+
+/*
+ * 
+ */
+int main(int argc, char** argv) {
+    int n;
+    puts("Enter a Diamond size");
+    scanf("%d",&n);//Diamond Size
+    int space = n-1;
+    
+    for ( int i = 1; i<=2*n-1;i++){//Row Number
+        for(int b=0; b<space; b++){//Spaces
+            printf(" ");
+        }
+        
+        for(int k = 1;k<=i*2-1;k++ ){//Stars
+            if (i<=n)
+                printf("*");
+        }
+        
+        for(int h = 1;h<=(2*n-i)*2-1;h++ ){//Stars
+            if(i>n)
+            printf("*");
+        }
+        
+        printf("\n");//new Line
+        
+        space--;//Space Decrement
+        if(i>=n)//Space Increment
+            space+=2;
+        
+            
+    }
+    return (EXIT_SUCCESS);
+}
+
+Enter a Diamond size
+8
+       *
+      ***
+     *****
+    *******
+   *********
+  ***********
+ *************
+***************
+ *************
+  ***********
+   *********
+    *******
+     *****
+      ***
+       *
+
+RUN FINISHED; exit value 0; real time: 5s; user: 0ms; system: 0ms
+
+----------------------------------------------------------------------------------------
+
+
+/* 
+ * 5.16
+ * Exponentiation
+ * Author: Xavier Loera Flores
+ * 3/7/2018
+ */
+#include <stdio.h>
+#include <stdlib.h>
+
+int integerPower(int base, int exponent);
+
+int main(int argc, char** argv) {
+    int b,e;
+    puts("Enter Base");//Input Base
+    scanf("%d",&b);
+    
+    puts("Enter Exponent");//Input Exponent    
+    scanf("%d",&e);
+    
+    printf("%d^%d=%d\n",b,e,integerPower(b,e));//Test of integerPower        
+    return (EXIT_SUCCESS);
+}
+int integerPower(int base, int exponent){
+    int result = 1;//initial value for result
+    for (int i = 1; i<= exponent; i++){
+        result *= base;
+    }
+    return result;
+}
+
+Enter Base
+3
+Enter Exponent
+4
+3^4=81
+
+RUN FINISHED; exit value 0; real time: 8s; user: 0ms; system: 0ms
+
+------------------------------------------------------------------------------------------
+
+
+/* 
+ * 5.34
+ * Recursive Exponentiation
+ * Author: Xavier Loera Flores
+ * 3/7/2018
+ */
+
+#include <stdio.h>
+#include <stdlib.h>
+int power(int base, int exp);
+int main(int argc, char** argv) {
+    int b,e;
+    puts("Enter Base");//Input Base
+    scanf("%d",&b);
+    
+    puts("Enter Exponent");//Input Exponent    
+    scanf("%d",&e);
+    
+    printf("%d^%d=%d\n",b,e,power(b,e));//Test of integerPower        
+    
+    return (EXIT_SUCCESS);
+}
+int power(int base, int exp){
+    if (exp ==0)
+        return 1;//value of base raised to the 0
+    return base * power(base, exp-1);//Recursion 
+    }
+
+
+Enter Base
+5
+Enter Exponent
+3
+5^3=125
+
+RUN FINISHED; exit value 0; real time: 4s; user: 0ms; system: 0ms
+
+
+------------------------------------------------------------------------------------------
+
+/* 
+ * 5.39
+ * Recursive Greatest Common Divisor
+ * Author: Xavier Loera Flores
+ * 3/7/2018
+ */
+
+#include <stdio.h>
+#include <stdlib.h>
+
+int gcd(int x, int y);
+int main(int argc, char** argv) {
+    int x,y;
+
+    //Input 2 Numbers
+    printf("%s","Enter a number:");
+    scanf("%d",&x);
+    printf("%s","Enter a number:");
+    scanf("%d",&y);
+
+    //Call GCD Function
+    printf("GCD: %d",gcd(x,y));
+    return (EXIT_SUCCESS);
+}
+int gcd(int x, int y){
+    if(y==0)
+        return x;
+    return gcd(y,x%y);//Recursion
+}
+
+
+Enter a number:75
+Enter a number:60
+GCD: 15
+RUN FINISHED; exit value 0; real time: 14s; user: 0ms; system: 0ms
+--------------------------------------------------------------------------------------
+

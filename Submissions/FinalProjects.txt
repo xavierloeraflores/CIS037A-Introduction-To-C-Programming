@@ -1,0 +1,472 @@
+
+
+/* 
+ * 10.3
+ * 
+ * Author: Xavier Loera Flores
+ * 5/9/2018
+ */
+
+#include <stdio.h>
+#include <stdlib.h>
+
+
+    struct part {
+            unsigned int partNumber;
+            char partName[25]; 
+                };
+int main(int argc, char** argv) {
+
+                
+ typedef struct part Part;
+ Part a, b[ 10 ], *ptr;
+ Part c;
+ char x[]={'d', 'a','n','k'};
+ c.partNumber=10;
+ printf("Please enter a part Number:");
+ scanf( "%d", &a.partNumber);
+ printf("\nPlease enter a part Name:");
+ scanf("%s",a.partName);
+ b[3]=a;
+ b[4]=c;
+ ptr = b;
+ printf( "\n%d %s\n", ( ptr + 3 )->partNumber, ( ptr + 3 )->partName);
+    return (EXIT_SUCCESS);
+}
+
+Please enter a part Number:100
+
+Please enter a part Name:part
+
+100 part
+
+RUN FINISHED; exit value 0; real time: 4s; user: 0ms; system: 0ms
+
+
+----------------------------------------------------------------------------------------
+/* 
+ * 10.6
+ * 
+ * Author: Xavier Loera Flores
+ * 5/15/2018
+ */
+
+#include <stdio.h>
+#include <stdlib.h>
+
+    struct customer {
+            char lastName[ 15 ];
+            char firstName[ 15 ]; unsigned int customerNumber;
+            struct {
+                char phoneNumber[ 11 ]; char address[ 50 ]; char city[ 15 ];
+                char state[ 3 ];
+                char zipCode[ 6 ];
+               } personal;
+            } customerRecord, *customerPtr;
+            
+            
+            
+            
+int main(int argc, char** argv) {
+
+    customerPtr = &customerRecord;
+    struct customer dank;
+    scanf("%s",dank.lastName);
+    char a[10]=customerRecord.lastName;
+    printf("%s",a);
+    //a)Member lastNameof structure customerRecord
+    customerRecord.lastName
+    //b)Member lastNameof the structure pointed to by customerPtr
+    customerPtr->lastName
+    //c)Member firstNameof structure customerRecord
+    customerRecord.firstName
+    //d)Member firstNameof the structure pointed to by customerPtr
+    customerPtr->firstName
+    //e)Member customerNumberof structure customerRecord
+    customerRecord. customerNumber
+    //f)Member customerNumberof the structure pointed to by customerPtr
+    customerRecord-> customerNumber
+    //g)Member phoneNumberof member personal of structure customerRecord
+    customerRecord.personal.phoneNumber
+    //h) Member phoneNumberof member personal of the structure pointed to by customerPtr
+    customerRecord->personal.phoneNumber
+    //i)Member address of member personal of structure customerRecord
+    customerRecord.personal.address
+    //j)Member address of member personal of the structure pointed to by customerPtr
+    customerRecord->personal.address
+    //k)Member city of member personal of structure customerRecord
+    customerRecord.personal.city
+    //)Member city of member personal of the structure pointed to by customerPtr
+    customerRecord->personal.city
+    //m) Member state of member personal of structure customerRecord
+    customerRecord.personal.state
+    //n) Member state of member personal of the structure pointed to by customerPtr
+    customerRecord->personal.state
+    //o)Member zipCodeof member personal of customerRecord
+    customerRecord.personal.zipCode
+    //p)Member zipCodeof member personal of the structure pointed to by customerPtr
+    customerRecord->personal.zipCode
+    return (EXIT_SUCCESS);
+}
+
+--------------------------------------------------------------------------
+/* 
+ * 12.6
+ * Concatenating Lists
+ * Author: Xavier Loera Flores
+ * 5/16/2018
+ */
+
+#include <stdio.h>
+#include <stdlib.h>
+
+
+void concatenate(char* str1, char* str2);
+int main(int argc, char** argv) {
+    char str1[20];
+    char str2[10];
+    puts("enter string 1:");
+    scanf("%s",&str1);
+    puts("enter string 2");
+    scanf("%s", &str2);
+    concatenate(str1,str2);
+    
+    printf("%s",str1);
+
+    return (EXIT_SUCCESS);
+}
+void concatenate(char *str1, char *str2){
+    strcat(str1,str2);
+}
+
+enter string 1:
+meta
+enter string 2
+cat
+metacat
+RUN FINISHED; exit value 0; real time: 9s; user: 0ms; system: 0ms
+
+--------------------------------------------------------
+
+/* 
+ * 12.7
+ * Merging Ordered Lists
+ * Author: Xavier Loera Flores
+ * 5/16/2018
+ */
+#include <stdio.h>
+#include <stdlib.h>
+
+
+
+struct numlist
+{
+    int data;
+    struct numlist *next;
+};
+
+    typedef struct numlist NumNode;
+    typedef NumNode *NumNodePtr;
+
+    void insert( NumNodePtr *sPtr, int value );
+    NumNodePtr merge( NumNodePtr tempPtr1, NumNodePtr tempPtr2 );
+    void printList( NumNodePtr currentPtr );
+    void instructions();
+
+int main(int argc, char** argv) {
+    NumNodePtr numlist1 = NULL;
+    NumNodePtr numlist2 = NULL;
+
+    unsigned int choice;
+    int item;
+
+    instructions();
+    printf("\n?");
+    scanf("%u",&choice);
+
+    while (choice != 4)
+    {
+        switch (choice)
+        {
+        case 1:
+            printf("Enter 3 numbers\n");
+            scanf("\n%d",&item);
+            insert( &numlist1, item );
+            printList( numlist1 );
+            scanf("\n%d",&item);
+            insert( &numlist1, item );
+            printList( numlist1 );
+            scanf("\n%d",&item);
+            insert( &numlist1, item );
+            printList( numlist1 );
+            
+            break;
+        case 2:
+            printf("Enter 3 numbers\n");
+            scanf("\n%d",&item);
+            insert( &numlist2, item );
+            printList( numlist2 );
+            scanf("\n%d",&item);
+            insert( &numlist2, item );
+            printList( numlist2 );
+            scanf("\n%d",&item);
+            insert( &numlist2, item );
+            printList( numlist2 );
+            break;
+        case 3:
+            printList( numlist1 );
+            printList( numlist2 );
+            puts("Merged list:");
+            printList( merge( numlist1, numlist2 ) );
+            
+            break;
+        }
+        printf("\n?");
+        scanf("%u",&choice);
+    }
+}
+
+void instructions()
+{
+    printf("Enter your choice:\n"
+    "   1 list 1.\n"
+    "   2 list 2.\n"
+    "   3 merge \n"
+    );
+}
+
+void insert( NumNodePtr *sPtr, int value )
+{
+    NumNodePtr newPtr;
+    NumNodePtr previousPtr;
+    NumNodePtr currentPtr;
+
+    newPtr = (NumNodePtr)malloc(sizeof(NumNode));
+
+    if (newPtr != NULL)
+    {
+        newPtr->data = value;
+        newPtr->next = NULL;
+
+        previousPtr = NULL;
+        currentPtr = *sPtr;
+
+        while (currentPtr != NULL && value > currentPtr->data)
+        {
+            previousPtr = currentPtr;
+            currentPtr = currentPtr->next;
+        }
+
+        if (previousPtr == NULL)
+        {
+                newPtr->next = *sPtr;
+                *sPtr = newPtr;
+        }
+        else
+        {
+            previousPtr->next = newPtr;
+            newPtr->next = currentPtr;
+        }
+    }
+}
+
+NumNodePtr merge( NumNodePtr tempPtr1, NumNodePtr tempPtr2 )
+{
+    NumNode merge; 
+    NumNodePtr begin, mergePtr = &merge;         
+    begin = mergePtr;                              
+    while ( tempPtr1 != NULL && tempPtr2 != NULL)
+    {
+        if ( tempPtr1->data < tempPtr2->data)
+        {
+        mergePtr->next = tempPtr1;
+        tempPtr1 = tempPtr1->next;
+        mergePtr = mergePtr->next;
+        }
+        else
+        {
+        mergePtr->next = tempPtr2;
+        tempPtr2 = tempPtr2->next;
+        mergePtr = mergePtr->next;
+        }
+    }
+    if ( tempPtr1 != NULL )                          
+    {
+        mergePtr->next = tempPtr1;
+    }
+    if ( tempPtr2 != NULL )                          
+    {
+        mergePtr->next = tempPtr2;
+    }   
+    return begin->next;                   
+}
+
+
+
+void printList( NumNodePtr currentPtr )
+{
+        while ( currentPtr != NULL )
+        {
+            printf("%d --> ", currentPtr->data);
+            currentPtr = currentPtr->next;
+        }
+        puts("");
+    
+}
+
+
+Enter your choice:
+   1 list 1.
+   2 list 2.
+   3 merge 
+
+?1
+Enter 3 numbers
+2
+2 --> 
+45
+2 --> 45 --> 
+890
+2 --> 45 --> 890 --> 
+
+?2
+Enter 3 numbers
+14
+14 --> 
+35
+14 --> 35 --> 
+10000
+14 --> 35 --> 10000 --> 
+
+?3
+2 --> 45 --> 890 --> 
+14 --> 35 --> 10000 --> 
+Merged list:
+2 --> 14 --> 35 --> 45 --> 890 --> 10000 --> 
+
+?4
+
+RUN FINISHED; exit value 0; real time: 26s; user: 0ms; system: 0ms
+
+--------------------------------------------------------------------------
+/* 
+ * 12.8
+ * Inserting into an Ordered Lists
+ * Author: Xavier Loera Flores
+ * 5/22/2018
+ */
+#include <stdio.h>
+#include <stdlib.h>
+
+
+
+struct numlist
+{
+    int data;
+    struct numlist *next;
+};
+
+    typedef struct numlist NumNode;
+    typedef NumNode *NumNodePtr;
+
+    void insert( NumNodePtr *sPtr, int value );
+    void printList( NumNodePtr currentPtr );
+    double getavg( NumNodePtr currentPtr );
+    int getsum( NumNodePtr currentPtr );
+int main(int argc, char** argv) {
+    NumNodePtr numlist1 = NULL;
+    int sum;
+    double avg;
+    for(int i = 0; i<25;i++)
+    {
+            insert( &numlist1, rand() % 101 );
+    }
+    printList(numlist1);
+    
+    printf("SUM:%d\nAVG:%f",getsum(numlist1),getavg(numlist1));
+}
+
+
+void insert( NumNodePtr *sPtr, int value )
+{
+    NumNodePtr newPtr;
+    NumNodePtr previousPtr;
+    NumNodePtr currentPtr;
+
+    newPtr = (NumNodePtr)malloc(sizeof(NumNode));
+
+    if (newPtr != NULL)
+    {
+        newPtr->data = value;
+        newPtr->next = NULL;
+
+        previousPtr = NULL;
+        currentPtr = *sPtr;
+
+        while (currentPtr != NULL && value > currentPtr->data)
+        {
+            previousPtr = currentPtr;
+            currentPtr = currentPtr->next;
+        }
+
+        if (previousPtr == NULL)
+        {
+                newPtr->next = *sPtr;
+                *sPtr = newPtr;
+        }
+        else
+        {
+            previousPtr->next = newPtr;
+            newPtr->next = currentPtr;
+        }
+    }
+    else
+    {
+            printf( "%d not inserted. No memory available.", value );
+    }
+}
+double getavg( NumNodePtr currentPtr )
+{
+    double avg=0.0;
+    int count =0;
+        while ( currentPtr != NULL )
+        {
+            avg+= currentPtr->data;
+            currentPtr = currentPtr->next;
+            count++;
+        }
+    avg=(double)avg/count;
+    return avg;
+}
+
+int getsum( NumNodePtr currentPtr )
+{
+    int sum =0;
+        while ( currentPtr != NULL )
+        {
+            sum+= currentPtr->data;
+            currentPtr = currentPtr->next;
+        }
+    return sum;
+    
+}
+
+void printList( NumNodePtr currentPtr )
+{
+
+        while ( currentPtr != NULL )
+        {
+            printf("%d --> ", currentPtr->data);
+            currentPtr = currentPtr->next;
+        }
+        puts("NULL");  
+}
+
+
+4 --> 5 --> 11 --> 15 --> 17 --> 19 --> 23 --> 27 --> 29 --> 31 --> 37 --> 41 --> 41 --> 49 --> 61 --> 62 --> 63 --> 65 --> 69 --> 72 --> 75 --> 75 --> 78 --> 79 --> 99 --> NULL
+SUM:1147
+AVG:45.880000
+RUN FINISHED; exit value 0; real time: 10ms; user: 0ms; system: 0ms
+
+
+

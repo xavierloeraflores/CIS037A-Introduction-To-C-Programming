@@ -1,0 +1,165 @@
+
+/* 
+ * 6.19
+ * Dice Rolling
+ * Author: Xavier Loera Flores
+ * 4/11/2018
+ */
+
+#include <stdio.h>
+#include <stdlib.h>
+
+/*
+ * 
+ */
+int main(int argc, char** argv) {
+    int dice1, dice2, sum;
+    int total[11];
+    dice1=rand()%6+1;
+    dice2=rand()%6+1;
+    sum = dice1 + dice2;
+    printf("Example:\nDice 1:%d\nDice 2:%d\nSum: %d\n",dice1,dice2,sum);
+    
+    for(int i = 1; i<=36000;i++){
+    dice1=rand()%6+1;
+    dice2=rand()%6+1;
+    sum = dice1 + dice2;
+    total[sum-1]++;
+    }
+    printf("\nTotals After 36,000 Tries\nSum\tTotal\n");
+    for(int j= 1; j<=11; j++)
+        printf("%d\t%d\n",j+1,total[j]);
+    printf("7 was rolled about 1/6 of the time:%.2f",(double)total[7]/36000);
+    return (EXIT_SUCCESS);
+}
+
+Example:
+Dice 1:2
+Dice 2:2
+Sum: 4
+
+Totals After 36,000 Tries
+Sum     Total
+2       933
+3       2078
+4       3027
+5       4027
+6       5003
+7       5983
+8       5048
+9       3873
+10      3041
+11      1971
+12      1017
+7 was rolled about 1/6 of the time:0.14
+RUN FINISHED; exit value 0; real time: 0ms; user: 0ms; system: 0ms
+
+----------------------------------------------------------------------------------
+
+/* 
+ * 7.31
+ * Calculator using function pointer
+ * Author: Xavier Loera Flores
+ * 4/20/2018
+ */
+
+
+#include<stdlib.h>
+#include <stdio.h>
+void addition(double num1, double num2); /* create the functions */
+void subtraction(double num1, double num2);
+void division(double num1, double num2);
+void multiplication(double num1, double num2);
+int main(int argc, char** argv){
+    int op;
+    double num1=0;
+    double num2=0;
+    void(*func[4])(double, double)={addition, subtraction, division, multiplication};
+    
+
+    
+    
+    do{
+    printf("Enter your choice(-1 to end)\n1-add\n2-subtract\n3-multiply\n4-divide\n");
+    scanf("%d",&op);
+
+    if( op == -1) 
+        break;
+
+    printf("Enter Number1:");
+    scanf("%lf", &num1);
+    printf("Enter Number2:");
+    scanf("%lf", &num2);
+        (*func[op-1])(num1, num2);
+
+    }while (op !=-1);
+        
+        return (EXIT_SUCCESS);
+}
+void addition(double num1, double num2){
+    puts("Addition: ");
+    printf("%lf + %lf = %lf\n", num1, num2, num1+num2);}
+
+void subtraction(double num1, double num2){
+    puts("Subtraction: ");
+    printf("%lf - %lf = %lf\n", num1, num2, num1-num2);
+}
+
+void multiplication(double num1, double num2){
+    puts("Multiplication: ");
+    printf("%lf * %lf = %lf\n", num1, num2, num1*num2);
+    }
+
+void division(double num1, double num2){
+    puts("Division: ");
+    printf("%lf * %lf = %lf\n", num1, num2, num1/num2);
+}
+Enter your choice(-1 to end)
+1-add
+2-subtract
+3-multiply
+4-divide
+1
+Enter Number1:4
+Enter Number2:4
+Addition: 
+4.000000 + 4.000000 = 8.000000
+Enter your choice(-1 to end)
+1-add
+2-subtract
+3-multiply
+4-divide
+2
+Enter Number1:5
+Enter Number2:3
+Subtraction: 
+5.000000 - 3.000000 = 2.000000
+Enter your choice(-1 to end)
+1-add
+2-subtract
+3-multiply
+4-divide
+3
+Enter Number1:4
+Enter Number2:4
+Division: 
+4.000000 * 4.000000 = 1.000000
+Enter your choice(-1 to end)
+1-add
+2-subtract
+3-multiply
+4-divide
+4
+Enter Number1:10
+Enter Number2:2
+Multiplication: 
+10.000000 * 2.000000 = 20.000000
+Enter your choice(-1 to end)
+1-add
+2-subtract
+3-multiply
+4-divide
+-1
+
+RUN FINISHED; exit value 0; real time: 1m 2s; user: 0ms; system: 0ms
+
